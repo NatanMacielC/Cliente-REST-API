@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.wl.app.model;
 
 import java.util.Objects;
 
@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Cliente {
+public class Funcionario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,28 @@ public class Cliente {
 	
 	@Column(nullable = false)
 	private String nome;
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public String getCafe() {
+		return cafe;
+	}
+
+	public void setCafe(String cafe) {
+		this.cafe = cafe;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	@Column(nullable = false, unique = true)
+	private String cpf;
+
+	@Column(nullable = false, unique = true)
+	private String cafe;
 
 	public Long getId() {
 		return id;
@@ -47,7 +69,7 @@ public class Cliente {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Funcionario other = (Funcionario) obj;
 		return Objects.equals(id, other.id);
 	}
 	

@@ -1,7 +1,9 @@
-package com.example.demo.controller;
+package com.wl.app.controller;
 
 import java.util.List;
 
+import com.wl.app.model.Funcionario;
+import com.wl.app.repository.FuncionarioRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,42 +17,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Cliente;
-import com.example.demo.repository.ClienteRepository;
 
 @RestController
-@RequestMapping("/clientes")
-public class ClientController {
+@RequestMapping("api/funcionario")
+public class FuncionarioController {
 
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private FuncionarioRepository funcionarioRepository;
 
 	@GetMapping
-	public List<Cliente> listar() {
-		return clienteRepository.findAll();
+	public List<Funcionario> listar() {
+
+		return funcionarioRepository.findAll();
 	}
 	
 	@GetMapping("{id}")
-	public Cliente listarClientePorId(@PathVariable Long id){
-		return clienteRepository.findById(id).get();
+	public Funcionario listarFuncionarioPorId(@PathVariable Long id){
+
+		return funcionarioRepository.findById(id).get();
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente adicionar(@RequestBody Cliente cliente) {
-		return clienteRepository.save(cliente);
+	public Funcionario adicionar(@RequestBody Funcionario funcionario) {
+		return funcionarioRepository.save(funcionario);
 	}
 	
 	@DeleteMapping("{id}")
 	public void excluir(@PathVariable Long id) {
-		clienteRepository.deleteById(id);
+
+		funcionarioRepository.deleteById(id);
 	}
 	
 	@PutMapping("{id}")
-	public Cliente atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
-		Cliente clienteAtual = clienteRepository.findById(id).get();
-		BeanUtils.copyProperties(cliente, clienteAtual, "id");
-		return clienteRepository.save(clienteAtual);
+	public Funcionario atualizar(@PathVariable Long id, @RequestBody Funcionario funcionario) {
+		Funcionario funcionarioAtual = funcionarioRepository.findById(id).get();
+		BeanUtils.copyProperties(funcionario, funcionarioAtual, "id");
+		return funcionarioRepository.save(funcionarioAtual);
 	}
 	
 	
